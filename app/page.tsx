@@ -5,6 +5,7 @@ import { Sparkles } from "lucide-react";
 import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
+import Recorder from "@/components/Recorder";
 
 interface ResponseData {
   response: { text: string }[];
@@ -56,7 +57,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-10 bg-gray-100">
-      <h1 className="text-4xl font-bold mb-10">Radiology AI</h1>
+      <h1 className="text-4xl font-bold mb-10">Brain MRI AI</h1>
 
       <Image
         src="/example.jpeg"
@@ -65,7 +66,7 @@ export default function Home() {
         height={300}
         className="mb-10 rounded-lg shadow-2xl"
       />
-
+      <Recorder />
       <Textarea
         placeholder="Please write down your findings"
         onChange={(e) => setUserQuery(e.target.value)}
