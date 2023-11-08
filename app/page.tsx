@@ -26,14 +26,15 @@ export default function Home() {
             query: `${userQuery}`,
             num_results: 10,
             corpus_key: [{ customer_id: "3980796585", corpus_id: "6" }],
-          },
-        ],
-        summary: [
-          {
-            summarizerPromptName: "vectara-experimental-summary-ext-2023-10-23-med",
-            responseLang: "en",
-            maxSummarizedResults: 5,
-          },
+          
+          summary: [
+            {
+              summarizerPromptName: "vectara-summary-ext-v1.2.0",
+              responseLang: "en",
+              maxSummarizedResults: 5,
+            },
+          ],
+        },
         ],
       }),
       method: "post",
