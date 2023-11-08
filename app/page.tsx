@@ -29,7 +29,7 @@ export default function Home() {
           {
             query: `${userQuery}`,
             num_results: 10,
-            corpus_key: [{ customer_id: "3980796585", corpus_id: "6" }],
+            corpus_key: [{ customer_id: "3980796585", corpus_id: "7" }],
 
             summary: [
               {
