@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
 import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Recorder from "@/components/Recorder";
 
 interface ResponseData {
@@ -15,13 +15,23 @@ export default function Home() {
   const [userQuery, setUserQuery] = useState("");
   const [responseData, setResponseData] = useState<ResponseData | any | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleRecordingComplete = (transcript: string) => {
+    setUserQuery(transcript);
+  };
 
   const handleQuery = () => {
     setIsLoading(true);
+
+    const apiKey = process.env.NEXT_PUBLIC_VECTARA_KEY;
+    if (!apiKey) {
+      throw new Error("VECTARA_KEY is not defined");
+    }
     fetch("https://api.vectara.io:443/v1/query", {
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": "zwt_7UYiqRAuYx3q43vUQa47TqwD-_xVPlfAHljLmg",
+        "x-api-key": apiKey,
         "customer-id": "3980796585",
       },
       body: JSON.stringify({
@@ -56,78 +66,87 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen p-10 bg-gray-100">
+    <main className="flex flex-col items-center justify-center min-h-screen p-10 bg-gray-100 ">
       <h1 className="text-4xl font-bold mb-10">Brain MRI AI</h1>
+      <div className="w-2/3">
+        <div className="flex">
+          <Image
+            src="/example.jpeg"
+            alt="Brain X-ray"
+            width={500}
+            height={300}
+            className="mb-10 rounded-lg shadow-2xl  items-center mr-20"
+          />
+          <Recorder onRecordingComplete={handleRecordingComplete} />
+        </div>
 
-      <Image
-        src="/example.jpeg"
-        alt="Brain X-ray"
-        width={500}
-        height={300}
-        className="mb-10 rounded-lg shadow-2xl"
-      />
-      <Recorder />
-      <Textarea
-        placeholder="Please write down your findings"
-        onChange={(e) => setUserQuery(e.target.value)}
-        className="w-full p-2 border border-gray-300 rounded mb-5"
-      />
+        <Textarea
+          value={userQuery}
+          placeholder="Please write down your findings"
+          onChange={(e) => setUserQuery(e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded mb-5"
+        />
 
-      <Button
-        onClick={handleQuery}
-        className="w-full py-2 px-4 bg-slate-800 text-white font-semibold rounded-lg shadow-md hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-opacity-75"
-      >
-        <Sparkles className="h-4 w-4 mr-3 " /> Analyze using previous case studies
-      </Button>
+        <Button
+          onClick={handleQuery}
+          className="w-full py-2 px-4 bg-slate-800 text-white font-semibold rounded-lg shadow-md hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-opacity-75"
+        >
+          <Sparkles className="h-4 w-4 mr-3 " /> Analyze using previous case studies
+        </Button>
 
-      {isLoading ? (
-        <div className="mt-5">
-          <div className="animate-pulse flex space-x-2">
-            <div className="flex-1 space-y-6 py-1">
-              <div className="h-2  bg-slate-300 rounded"></div>
-              <div className="space-y-3">
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="h-2 w-96 bg-slate-300 rounded col-span-2"></div>
-                  <div className="h-2  bg-slate-300 rounded col-span-1"></div>
+        {isLoading ? (
+          <div className="mt-5">
+            <div className="animate-pulse flex space-x-2">
+              <div className="flex-1 space-y-6 py-1">
+                <div className="h-2  bg-slate-300 rounded"></div>
+                <div className="space-y-3">
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="h-2 w-96 bg-slate-300 rounded col-span-2"></div>
+                    <div className="h-2  bg-slate-300 rounded col-span-1"></div>
+                  </div>
+                  <div className="h-2  bg-slate-300 rounded"></div>
+                  <div className="h-2  bg-slate-300 rounded"></div>
+                  <div className="h-2  bg-slate-300 rounded"></div>
+                  <div className="h-2  bg-slate-300 rounded"></div>
+                  <div className="h-2  bg-slate-300 rounded"></div>
+                  <div className="h-2  bg-slate-300 rounded"></div>
+                  <div className="h-2  bg-slate-300 rounded"></div>
                 </div>
-                <div className="h-2  bg-slate-300 rounded"></div>
-                <div className="h-2  bg-slate-300 rounded"></div>
-                <div className="h-2  bg-slate-300 rounded"></div>
-                <div className="h-2  bg-slate-300 rounded"></div>
-                <div className="h-2  bg-slate-300 rounded"></div>
-                <div className="h-2  bg-slate-300 rounded"></div>
-                <div className="h-2  bg-slate-300 rounded"></div>
               </div>
             </div>
           </div>
-        </div>
-      ) : (
-        responseData && (
-          <div className="mt-5">
-            <h2 className="text-2xl font-bold mb-3">Summary:</h2>
-            {responseData.summary.map((item: any, index: any) => (
-              <p
-                key={index}
-                className="mb-1"
-              >
-                {item.text}
-              </p>
-            ))}
-
-            <h2 className="text-2xl font-bold mt-5 mb-3">Sources:</h2>
-            <ol className="list-decimal list-inside">
-              {responseData.response.map((item: any, index: any) => (
-                <li
+        ) : (
+          responseData && (
+            <div className="mt-5">
+              <h2 className="text-2xl font-bold mb-3">Summary:</h2>
+              {responseData.summary.map((item: any, index: any) => (
+                <p
                   key={index}
                   className="mb-1"
                 >
                   {item.text}
-                </li>
+                </p>
               ))}
-            </ol>
-          </div>
-        )
-      )}
+
+              <h2 className="text-2xl font-bold mt-5 mb-3">Sources:</h2>
+
+              <ol className="list-decimal list-inside">
+                {responseData.document.map((item: any, index: any) => (
+                  <li
+                    key={index}
+                    className=" bg-slate-200 mb-2 p-3 rounded-lg shadow-sm"
+                  >
+                    {item.id}
+                    <p className="ml-6 text-slate-500 text-xs">
+                      {responseData.response[index].text.substring(0, 50)}...
+                    </p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )
+        )}
+      </div>
     </main>
   );
 }

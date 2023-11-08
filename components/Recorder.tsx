@@ -1,5 +1,9 @@
 "use client";
 
+interface RecorderProps {
+  onRecordingComplete: (transcript: string) => void;
+}
+
 // Import necessary modules and components
 import { useEffect, useState, useRef } from "react";
 
@@ -11,7 +15,7 @@ declare global {
 }
 
 // Export the MicrophoneComponent function component
-export default function Recorder() {
+export default function Recorder({ onRecordingComplete }: RecorderProps) {
   // State variables to manage recording status, completion, and transcript
   const [isRecording, setIsRecording] = useState(false);
   const [recordingComplete, setRecordingComplete] = useState(false);
@@ -57,6 +61,7 @@ export default function Recorder() {
       // Stop the speech recognition and mark recording as complete
       recognitionRef.current.stop();
       setRecordingComplete(true);
+      onRecordingComplete(transcript);
     }
   };
 
@@ -75,7 +80,7 @@ export default function Recorder() {
     <div className="flex items-center justify-center  w-full">
       <div className="w-full">
         {(isRecording || transcript) && (
-          <div className="w-1/4 m-auto rounded-md border p-4 bg-white">
+          <div className=" m-auto rounded-md border p-4 bg-white">
             <div className="flex-1 flex w-full justify-between">
               <div className="space-y-1">
                 <p className="text-sm font-medium leading-none">{recordingComplete ? "Recorded" : "Recording"}</p>
