@@ -1,36 +1,19 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## BrainMRI-AI
 
-## Getting Started
+Project Submission for Vecatara Hackathon 2023.
 
-First, run the development server:
+BrainMRI AI represents a paradigm shift in the diagnosis of brain tumors, combining Vectara's semantic search with the webkitSpeechRecognition API to deliver accurate, voice-activated support. Through this integration, radiologists can dictate their observations, which are then matched against an extensive database of cases and relevant literature, dramatically accelerating the diagnosing process.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+BrainMRI AI revolutionizes case study reviews by merging an AI-assisted tool's rapid data retrieval with the power of voice. Radiologists' spoken observations trigger an in-depth search, instantly compiling necessary documents and drawing up a list of pertinent cases and literature. This streamlines the diagnostic process and fosters cross-departmental collaboration, making BrainMRI AI a crucial ally in medical imaging and patient care.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Key features include:
+- Hands-free speech-to-text, keeping radiologists focused on imaging.
+- Swift, semantic database scans for case-relevant data.
+- Quick access to comparable MRI cases for immediate analysis.
+- A portal to medical research, deepening insights into unique MRI observations.
+- Streamlined case reviews by presenting pertinent literature.
+- A study aid for medical students with access to real MRI case analyses.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Our technology stack, including NextJS, TailwindCSS, and Shadcn, creates a responsive and intuitive user interface, while Vectara API's reranking and file storage capabilities ensure that the most pertinent information is always at hand. With the inclusion of a summarization feature that cites relevant sources, our application not only finds but contextualizes critical information, reinforcing its credibility.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+In bridging the gap between technological innovation and medical expertise, BrainMRI AI is set to become an essential component in the future of radiological diagnosis and patient outcome enhancement.
