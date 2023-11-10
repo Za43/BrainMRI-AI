@@ -1,7 +1,5 @@
 ## BrainMRI-AI
 
-Project Submission for Vecatara Hackathon 2023.
-
 BrainMRI AI represents a paradigm shift in the diagnosis of brain tumors, combining Vectara's semantic search with the webkitSpeechRecognition API to deliver accurate, voice-activated support. Through this integration, radiologists can dictate their observations, which are then matched against an extensive database of cases and relevant literature, dramatically accelerating the diagnosing process.
 
 BrainMRI AI revolutionizes case study reviews by merging an AI-assisted tool's rapid data retrieval with the power of voice. Radiologists' spoken observations trigger an in-depth search, instantly compiling necessary documents and drawing up a list of pertinent cases and literature. This streamlines the diagnostic process and fosters cross-departmental collaboration, making BrainMRI AI a crucial ally in medical imaging and patient care.
